@@ -1,16 +1,35 @@
 <?php
 
 class Database {
-    private $host = DB_HOST;
-    private $user = DB_USER;
-    private $pass = DB_PASS;
-    private $dbname = DB_NAME;
+    private $host;
+    private $user;
+    private $pass;
+    private $dbname;
 
     private $dbh; //Database handler
     private $error; //for storing error messages
     private $stmt; //Statement handler
 
     public function __construct() {
+        // Load config relative to this file
+        $configPath = __DIR__ . '/../../config/config.php';
+        if (!file_exists($configPath)) {
+            error_log("Config file not found: $configPath", 3, __DIR__ . '/../../logs/app.log');
+            die('Configuration file missing. Check config/config.php');
+        }
+        require_once $configPath;
+
+        // Ensure DB constants exist
+        if (defined('DB_HOST') && defined('DB_USER') && defined('DB_PASS') && defined('DB_NAME')) {
+            $this->host   = DB_HOST;
+            $this->user   = DB_USER;
+            $this->pass   = DB_PASS;
+            $this->dbname = DB_NAME;
+        } else {
+            error_log('DB constants not defined in config file', 3, __DIR__ . '/../../logs/app.log');
+            die('Database configuration incomplete. Check config/config.php');
+        }
+
         //Set DSN
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
         $options = array(
@@ -23,7 +42,8 @@ class Database {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
-            error_log($this->error, 3, LOGFILE); // Log error to a file
+            $logfile = defined('LOGFILE') ? LOGFILE : (__DIR__ . '/../../logs/app.log');
+            error_log($this->error, 3, $logfile);
             die('Database connection failed. Please check the log file for details.');
         }
     }
