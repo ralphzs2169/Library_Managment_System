@@ -1,8 +1,11 @@
-<footer class="mt-[300px]">
+<?php
+    require_once __DIR__ . '/../../config/config.php';
+?>
+<footer>
     <div class=" bg-primary  text-white  pt-18 flex justify-center flex-col items-center space-y-12">
         <!-- Logo Section -->
-          <a href="index.php" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 cursor-pointer">
-            <img src="../public/assets/images/logo.png" width="50" height="50" alt="Logo" class="rounded-full">
+          <a href="<?php echo BASE_URL; ?>public/index.php" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 cursor-pointer">
+            <img src="<?php echo BASE_URL; ?>public/assets/images/logo.png" width="50" height="50" alt="Logo" class="rounded-full">
             <div>
               <h1 class="text-xl font-bold leading-tight">Smart Library</h1>
               <p class="text-xs text-gray-300">Management System</p>
@@ -11,7 +14,7 @@
 
         <!-- Desktop Navigation -->
           <nav class="flex items-center space-x-20">
-            <a href="index.php" class="hover-scale-lg text-sm font-medium tracking-wide uppercase cursor-pointer hover:text-secondary transition-colors duration-300">Home</a>
+            <a href="<?php echo BASE_URL; ?>public/index.php" class="hover-scale-lg text-sm font-medium tracking-wide uppercase cursor-pointer hover:text-secondary transition-colors duration-300">Home</a>
             <a href="about.php" class="hover-scale-lg text-sm font-medium tracking-wide uppercase cursor-pointer hover:text-secondary transition-colors duration-300">About</a>
             <a href="catalog.php" class="hover-scale-lg text-sm font-medium tracking-wide uppercase cursor-pointer hover:text-secondary transition-colors duration-300">Catalog</a>
           </nav>
@@ -20,11 +23,11 @@
           <div class="mt-6 flex flex-col items-center pb-4 rounded-lg space-y-4">
             <h2 class="font-bold">Stay in Touch</h2>
             <div class="flex">
-                <a href="" class="hover-scale-xl"><img src="../public/assets/icons/footer-fb.svg" alt="Facebook Logo"></a>
-                <a href="" class="hover-scale-xl"><img src="../public/assets/icons/footer-insta.svg" alt="Instagram Logo"></a>
-                <a href="" class="hover-scale-xl"><img src="../public/assets/icons/footer-tiktok.svg" alt="TikTok Logo"></a>
-                <a href="" class="hover-scale-xl"><img src="../public/assets/icons/footer-gmail.svg" alt="Gmail Logo"></a>
-                <a href="" class="hover-scale-xl"><img src="../public/assets/icons/footer-pinterest.svg" alt="Pinterest Logo"></a>
+                <a href="" class="hover-scale-xl"><img src="<?php echo BASE_URL; ?>public/assets/icons/footer-fb.svg" alt="Facebook Logo"></a>
+                <a href="" class="hover-scale-xl"><img src="<?php echo BASE_URL; ?>public/assets/icons/footer-insta.svg" alt="Instagram Logo"></a>
+                <a href="" class="hover-scale-xl"><img src="<?php echo BASE_URL; ?>public/assets/icons/footer-tiktok.svg" alt="TikTok Logo"></a>
+                <a href="" class="hover-scale-xl"><img src="<?php echo BASE_URL; ?>public/assets/icons/footer-gmail.svg" alt="Gmail Logo"></a>
+                <a href="" class="hover-scale-xl"><img src="<?php echo BASE_URL; ?>public/assets/icons/footer-pinterest.svg" alt="Pinterest Logo"></a>
             </div>
           </div>
     </div>

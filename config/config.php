@@ -9,6 +9,9 @@ define('DB_NAME', 'library_management_system');
 // App Root
 define('APPROOT', dirname(dirname(__FILE__)));
 
+//Base URL
+define('BASE_URL', '/LibraryManagementSystem/');
+
 // URL ROOT
 define('URLROOT', 'http://localhost/LibraryManagementSystem');
 

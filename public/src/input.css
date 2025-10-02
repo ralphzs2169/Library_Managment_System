@@ -4,6 +4,7 @@
   --font-sans: 'Roboto', sans-serif;
   --color-primary: #202020;
   --color-secondary: #00ADB5;
+  --color-background: #EEEEEE;
 }
 
 @layer utilities {
