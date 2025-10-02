@@ -3,7 +3,12 @@
     "@tailwindcss/cli": "^4.1.14",
     "tailwindcss": "^4.1.14"
   },
+  
   "scripts": {
-  "build": "npx tailwindcss -i ./public/src/input.css -o ./public/css/output.css --watch"
+    "dev": "tailwindcss -i ./public/src/input.css -o ./public/css/output.css --watch",
+    "build": "tailwindcss -i ./public/src/input.css -o ./public/css/output.css --minify" 
+  }
 }
-}
+
+  
+

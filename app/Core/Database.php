@@ -13,10 +13,12 @@ class Database {
     public function __construct() {
         // Load config relative to this file
         $configPath = __DIR__ . '/../../config/config.php';
+
         if (!file_exists($configPath)) {
             error_log("Config file not found: $configPath", 3, __DIR__ . '/../../logs/app.log');
             die('Configuration file missing. Check config/config.php');
         }
+        
         require_once $configPath;
 
         // Ensure DB constants exist

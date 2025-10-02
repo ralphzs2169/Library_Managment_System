@@ -1,1 +1,74 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: 'Roboto', sans-serif;
+  --color-primary: #202020;
+  --color-secondary: #00ADB5;
+}
+
+@layer utilities {
+
+  /* Button Animation */
+  .hover-scale-xl {
+    @apply transform transition-transform duration-150;
+  }
+  .hover-scale-xl:hover {
+    @apply scale-110;
+  }
+  .hover-scale-xl:active {
+    @apply scale-100;
+  }
+  .hover-scale-lg {
+    @apply transform transition-transform duration-150;
+  }
+  .hover-scale-lg:hover {
+    @apply scale-107;
+  }
+  .hover-scale-lg:active {
+    @apply scale-100;
+  }
+  .hover-scale-md {
+    @apply transform transition-transform duration-150;
+  }
+  .hover-scale-md:hover {
+    @apply scale-105;
+  }
+  .hover-scale-md:active {
+    @apply scale-100;
+  }
+  .hover-scale-sm {
+    @apply transform transition-transform duration-150;
+  }
+  .hover-scale-sm:hover {
+    @apply scale-102;
+  }
+  .hover-scale-sm:active {
+    @apply scale-100;
+  }
+
+     /* Nav Link Underline Animation */
+  .nav-link {
+    @apply relative inline-block py-2;
+  }
+  .nav-link::after {
+    content: '';
+    @apply absolute left-0 w-0 h-0.5 bg-secondary transition-all duration-300 ease-out;
+    bottom: 0;
+  }
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+  .nav-link:hover {
+    @apply text-secondary;
+  }
+  .nav-link:hover {
+    color: var(--color-secondary);
+    font-weight: bold;
+  }
+
+  /* Drop Shadow Utility */
+  .drop-shadow-custom {
+    filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 0.25));
+  }
+
+}
