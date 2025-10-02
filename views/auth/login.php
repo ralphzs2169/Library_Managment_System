@@ -54,7 +54,7 @@
 
             <div class="mt-4 text-center">
                 <p class="text-xs text-gray-600">Don't have an account yet? 
-                    <a href="register.php" class="text-secondary font-medium underline">Sign Up Here</a>
+                    <a href="<?php echo BASE_URL ?>views/auth/signup.php" class="text-secondary font-medium underline">Sign Up Here</a>
                 </p>
             </div>
         </div>

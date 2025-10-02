@@ -12,114 +12,151 @@
 <body>
     <?php include '../layouts/header.php'; ?>
 
-     <div class="min-h-screen flex items-center py-10 justify-center bg-background">
+    <div class="min-h-screen flex items-center py-10 justify-center bg-background">
         <div class="bg-white p-10 rounded-2xl shadow-lg w-full max-w-2xl">
             <div class="flex flex-col items-center mb-4">
-                <img src="<?php echo BASE_URL ?>public/assets/images/logo-white.png" width=55 height=55 alt="Logo" class="mb-2">
+                <img src="<?php echo BASE_URL ?>public/assets/images/logo-white.png" width=55 height=55 alt="Logo" class="">
                 <h2 class="text-4xl font-bold mb-5 text-center">Sign Up</h2>
             </div>
 
-            <form action="process_login.php" method="POST" class="space-y-5">
+            <form id="signup-form" action="process_login.php" method="POST" class="space-y-4" novalidate>
                 
                 <!-- Personal Information Section -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700" >Personal Information</label>
-                    <div class="grid grid-cols-3 gap-2 mb-2">
+                <div class="form-section">
+                    <label class="block text-sm font-medium text-gray-700 ">Personal Information</label>
+                    <div class="grid gap-2 section-grid" style="grid-template-columns: 1fr 1fr 0.5fr;">
                         <!-- First Name -->
-                        <input type="text" id="first_name" name="first_name" required
-                               placeholder="First Name"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3  border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">        
+                        <div class="field-container">
+                            <div class="error-placeholder" id="firstname-error-placeholder"></div>
+                            <input type="text" id="firstname" name="firstname" 
+                                   placeholder="First Name"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>        
                         <!-- Last Name -->
-                        <input type="text" id="last_name" name="last_name" required
-                               placeholder="Last Name"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="lastname-error-placeholder"></div>
+                            <input type="text" id="lastname" name="lastname" 
+                                   placeholder="Last Name"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                         <!-- Middle Initial -->
-                        <input type="text" id="middle_initial" name="middle_initial" required
-                               placeholder="Middle Initial"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="middle_initial-error-placeholder"></div>
+                            <input type="text" id="middle_initial" name="middle_initial" maxlength="1"
+                                   placeholder="M.I."
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 mb-4">
+                    
+                    <div class="grid grid-cols-2 gap-2 section-grid">
                         <!-- Email Address -->
-                        <input type="email" id="email" name="email" required
-                               placeholder="Email"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="email-error-placeholder"></div>
+                            <input type="email" id="email" name="email" 
+                                   placeholder="Email"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                         <!-- Contact Number -->
-                        <input type="text" id="contact" name="contact" required
-                               placeholder="Contact Number"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="contact_no-error-placeholder"></div>
+                            <input type="text" id="contact_no" name="contact_no" 
+                                   placeholder="Contact Number"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                     </div>
-
                 </div>
 
                 <!-- Account Information Section -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700" >Account Information</label>
+                <div class="form-section">
+                    <label class="block text-sm font-medium text-gray-700 ">Account Information</label>
                     <!-- Username -->
-                    <input type="text" id="username" name="username" required
-                               placeholder="Username"
-                               class="mt-1 mb-2 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3  border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">  
-                                    
-                    <div class="grid grid-cols-2 gap-2 mb-4">
+                    <div class="field-container">
+                        <div class="error-placeholder" id="username-error-placeholder"></div>
+                        <input type="text" id="username" name="username" 
+                                   placeholder="Username"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                    </div>  
+                                        
+                    <div class="grid grid-cols-2 gap-2 section-grid">
                         <!-- Password -->
-                        <input type="password" id="password" name="password" required
-                               placeholder="Password"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="password-error-placeholder"></div>
+                            <input type="password" id="password" name="password" 
+                                   placeholder="Password"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                         <!-- Confirm Password-->
-                        <input type="password" id="confirm_password" name="confirm_password" required
-                               placeholder="Confirm Password"
-                               class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="confirm_password-error-placeholder"></div>
+                            <input type="password" id="confirm_password" name="confirm_password" 
+                                   placeholder="Confirm Password"
+                                   class="mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                        </div>
                     </div>
                 </div>
 
                 <!-- School Information Section -->
-                   <div>
-                    <label class="block text-sm font-medium text-gray-700" >School Information</label>
-                    <div class="grid grid-cols-2 gap-2 mb-4">
+                <div class="form-section">
+                    <label class="block text-sm font-medium text-gray-700 ">School Information</label>
+                    <div class="grid grid-cols-2 gap-2 section-grid">
                         <!-- Role -->
-                        <select id="role" name="role" required
-                                   class="cursor-pointer mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
-                            <option value="" disabled selected>Select Role</option>
-                            <option value="student">Student</option>
-                            <option value="faculty">Teacher</option>
-                        </select>
+                        <div class="field-container">
+                            <div class="error-placeholder" id="role-error-placeholder"></div>
+                            <select id="role" name="role" 
+                                       class="cursor-pointer mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="Student">Student</option>
+                                <option value="Teacher">Teacher</option>
+                            </select>
+                        </div>
 
                         <!-- ID Number-->
-                        <input type="text" id="id_number" name="id_number" required disabled
-                               placeholder="Select role first"
-                               class="mt-1 block text-sm w-full bg-gray-200 font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent disabled:cursor-not-allowed">
+                        <div class="field-container">
+                            <div class="error-placeholder" id="id_number-error-placeholder"></div>
+                            <input type="text" id="id_number" name="id_number" disabled
+                                   placeholder="Select role first"
+                                   class="mt-1 block text-sm w-full bg-gray-200 font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent disabled:cursor-not-allowed">
+                        </div>
                     </div>    
 
-                    <div class="grid grid-cols-2 gap-2 mb-4" id="school-details">
+                    <div class="grid grid-cols-2 gap-2 section-grid" id="school-details">
                         <!-- Year Level -->
-                          <select id="year_level" name="year_level" required
-                                   class="cursor-pointer mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
-                            <option value="" disabled selected>Select Year Level</option>
-                            <option value="1">1st Year</option>
-                            <option value="2">2nd Year</option>
-                            <option value="3">3rd Year</option>
-                            <option value="4">4th Year</option>
-                        </select>
+                        <div class="field-container">
+                            <div class="error-placeholder" id="year_level-error-placeholder"></div>
+                            <select id="year_level" name="year_level" 
+                                       class="cursor-pointer mt-1 block text-sm w-full bg-gray-200 font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent disabled:cursor-not-allowed">
+                                <option value="" disabled selected>Select Year Level</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+                        
                         <!-- Department -->
-                          <select id="department" name="department" required
-                                   class="cursor-pointer mt-1 block text-sm w-full bg-[#F2F2F2] font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
-                                    focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
-                            <option value="" disabled selected>Select Department</option>
-                            <option value="1">CCICT</option>
-                            <option value="2">BEED</option>
-                            <option value="3">BSED</option>
-                            <option value="4">BSBA</option>
-                        </select>
+                        <div class="field-container">
+                            <div class="error-placeholder" id="department_id-error-placeholder"></div>
+                            <select id="department_id" name="department_id" 
+                                       class="cursor-pointer mt-1 block text-sm w-full bg-gray-200 font-extralight px-4 py-3 border border-[#B1B1B1] rounded-lg
+                                        focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent disabled:cursor-not-allowed">
+                                <option value="" disabled selected>Select Department</option>
+                                <option value="1">CCICT</option>
+                                <option value="2">BEED</option>
+                                <option value="3">BSED</option>
+                                <option value="4">BSBA</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -136,7 +173,7 @@
 
             <div class="mt-4 text-center">
                 <p class="text-xs text-gray-600">Already Have an Account? 
-                    <a href="register.php" class="text-secondary font-medium underline">Login Now</a>
+                    <a href="<?php echo BASE_URL ?>views/auth/login.php" class="text-secondary font-medium underline">Login Now</a>
                 </p>
             </div>
         </div>
@@ -145,55 +182,10 @@
 
     <?php include '../layouts/footer.php'; ?>
 
-    <script>
-        const roleSelect = document.getElementById('role');
-        const idNumberField = document.getElementById('id_number');
-        const yearLevelField = document.getElementById('year_level');
-        const departmentField = document.getElementById('department');
-        const schoolDetailsContainer = document.getElementById('school-details');
+    <!-- SweetAlert2 local copy -->
+    <script src="<?php echo URLROOT; ?>/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-        roleSelect.addEventListener('change', function() {
-            const selectedRole = this.value;
-            
-            if (selectedRole === 'student') {
-                idNumberField.disabled = false;
-                idNumberField.placeholder = 'Student ID';
-                idNumberField.classList.remove('bg-gray-200', 'disabled:cursor-not-allowed');
-                idNumberField.classList.add('bg-[#F2F2F2]');
-                
-                // Show year level and use 2-column grid
-                yearLevelField.style.display = 'block';
-                yearLevelField.required = true;
-                schoolDetailsContainer.classList.remove('grid-cols-1');
-                schoolDetailsContainer.classList.add('grid-cols-2');
-            } else if (selectedRole === 'faculty') {
-                idNumberField.disabled = false;
-                idNumberField.placeholder = 'Employee ID';
-                idNumberField.classList.remove('bg-gray-200', 'disabled:cursor-not-allowed');
-                idNumberField.classList.add('bg-[#F2F2F2]');
-                
-                // Hide year level and use 1-column grid for department
-                yearLevelField.style.display = 'none';
-                yearLevelField.required = false;
-                yearLevelField.value = '';
-                schoolDetailsContainer.classList.remove('grid-cols-2');
-                schoolDetailsContainer.classList.add('grid-cols-1');
-            } else {
-                idNumberField.disabled = true;
-                idNumberField.placeholder = 'Select role first';
-                idNumberField.value = '';
-                idNumberField.classList.remove('bg-[#F2F2F2]');
-                idNumberField.classList.add('bg-gray-200', 'disabled:cursor-not-allowed');
-                
-                // Reset to default state
-                yearLevelField.style.display = 'block';
-                yearLevelField.required = true;
-                yearLevelField.value = '';
-                departmentField.value = '';
-                schoolDetailsContainer.classList.remove('grid-cols-1');
-                schoolDetailsContainer.classList.add('grid-cols-2');
-            }
-        });
-    </script>
+    <!-- application script (must load after SweetAlert) -->
+    <script src="<?php echo URLROOT; ?>/public/js/signup.js"></script>
 </body>
 </html>

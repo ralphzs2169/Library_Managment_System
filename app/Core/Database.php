@@ -6,7 +6,7 @@ class Database {
     private $pass;
     private $dbname;
 
-    private $dbh; //Database handler
+    public $dbh; //Database handler
     private $error; //for storing error messages
     private $stmt; //Statement handler
 

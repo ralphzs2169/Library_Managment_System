@@ -47,6 +47,50 @@
     @apply scale-100;
   }
 
+  /* Invalid Inputs */
+  .invalid-input{
+    @apply border-red-500 border-2 bg-red-50 focus:ring-red-500;
+  }
+  .error-message {
+    @apply text-red-600 text-xs font-extralight;
+    margin-bottom: 0;
+    margin-top: 0;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    visibility: hidden;
+    overflow: hidden;
+  }
+  .error-placeholder {
+    @apply text-xs font-medium;
+  
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.12s ease, visibility 0.12s;
+    display: block;
+  }
+
+  .error-placeholder.visible {
+    opacity: 1;
+    visibility: visible;
+    @apply text-red-600; 
+  }
+
+  .field-container {
+    position: relative;
+    margin-bottom: 4px;
+  }
+  
+  /* Section spacing adjustments */
+  .form-section {
+    margin-bottom: 16px;
+  }
+
+  .form-section:last-child {
+    margin-bottom: 0;
+  }
+
      /* Nav Link Underline Animation */
   .nav-link {
     @apply relative inline-block py-2;
