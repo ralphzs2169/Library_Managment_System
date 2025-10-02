@@ -36,7 +36,7 @@ class Router
                 require_once $controllerFile;
 
                 $controller = new $controllerName($db);
-                
+
                 if (!method_exists($controller, $action)) {
                     http_response_code(404);
                     echo json_encode(['error' => "Method $action not found in $controllerName"]);
@@ -65,11 +65,9 @@ class Router
         return [
             'POST' => [
                 '/signup' => 'AuthController@signup',
+                '/login' => 'AuthController@login',
+                '/logout' => 'AuthController@logout',
                
-
-                '/register/step1' => 'RegisterController@validateInitial',
-                '/register/step2' => 'RegisterController@register',
-                '/login' => 'LoginController@login',
                 // Add more POST routes here
             ],
             'GET' => [

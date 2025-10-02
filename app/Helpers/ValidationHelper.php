@@ -69,6 +69,22 @@ class ValidationHelper {
         return empty($errors) ? null : $errors;
     }
 
+    public static function validateLoginData($data) {
+        $errors = [];
+
+        // Validate username
+        if (empty($data['username'] ?? '')) {
+            $errors['username'] = 'Username is required';
+        }
+
+        // Validate password
+        if (empty($data['password'] ?? '')) {
+            $errors['password'] = 'Password is required';
+        }
+
+        return empty($errors) ? null : $errors;
+    }
+
 
     public static function validateEmail($email) {
         if (empty($email)) {

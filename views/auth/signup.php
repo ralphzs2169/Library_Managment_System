@@ -186,6 +186,7 @@
     <script src="<?php echo URLROOT; ?>/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <!-- application script (must load after SweetAlert) -->
+    <script src="<?php echo URLROOT; ?>/public/js/helpers.js"></script>
     <script src="<?php echo URLROOT; ?>/public/js/signup.js"></script>
 </body>
 </html>

@@ -49,7 +49,7 @@ class AuthController extends Controller{
                     }
                     echo json_encode(['status' => 'failed', 'errors' => $invalidMessages]);
                     http_response_code(422);
-                    return;
+                    exit;
                 }
 
                 // Set values in your model
@@ -92,7 +92,7 @@ class AuthController extends Controller{
                 if ($useTransaction && $this->db->inTransaction()) {
                     $this->db->commit();
                 }
-                echo json_encode(['message' => 'User registered successfully']);
+                echo json_encode(['status' => 'success', 'message' => 'User registered successfully']);
                 http_response_code(201);
                 return;
 
@@ -109,26 +109,55 @@ class AuthController extends Controller{
             http_response_code(405);
             return;
         }
-}
+    }
 
 
-    public function login()
-    {
+    public function login(){
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                // Read JSON body
+            $data = json_decode(file_get_contents('php://input'), true);
 
-            $user = $this->userModel->login($_POST['username'], $_POST['password']);
-            
-            if ($user) {
+            if (!$data) {
+                echo json_encode(['error' => 'Invalid or missing JSON']);
+                http_response_code(400);
+                exit;
+            }
+
+            $invalidMessages = ValidationHelper::validateLoginData($data);
+
+            if (!empty($invalidMessages)) {
+                echo json_encode(['status' => 'failed', 'errors' => $invalidMessages]);
+                http_response_code(422);
+                exit;
+            }
+
+            // Find username
+            $user = $this->userModel->findUserByEmailOrUsername($data['username']);
+
+            if (!$user) {
+                echo json_encode(['status' => 'failed', 'errors' => ['username' => 'Username not found']]);
+                http_response_code(422);
+                exit;
+            }
+           
+            if ($user && password_verify($data['password'], $user->password)) {
+                // Login successful
+                // Set session variables
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['username'] = $user->username;
+                $_SESSION['email'] = $user->email;
                 $_SESSION['role'] = $user->role;
                 
-                header('Location: ' . URLROOT . '/dashboard');
+                echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+                http_response_code(200);
                 exit;
             } else {
-                $this->view('auth/login', ['error' => 'Invalid credentials']);
+                echo json_encode(['status' => 'failed', 'errors' => ['password' => 'Invalid Password']]);
+                http_response_code(422);
+                exit;
             }
+
         } else {
             $this->view('auth/login');
         }

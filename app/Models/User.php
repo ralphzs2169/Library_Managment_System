@@ -71,9 +71,11 @@ class User {
     public function login($username, $password) {   
 
         $user = $this->findUserByEmailOrUsername($username);
-        if ($user && password_verify($password, $user->password)) {
+        
+        if ($user) {
             return $user;
         }
+
         return false;
     }
 
