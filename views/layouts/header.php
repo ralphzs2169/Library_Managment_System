@@ -24,9 +24,9 @@
 
       <!-- Desktop Auth Buttons -->
       <div class="hidden lg:flex items-center space-x-4">
-        <button class="nav-link hover-scale-md mx-6 py-2 text-sm font-medium rounded-lg cursor-pointer hover:text-secondary transition-colors duration-300">
+        <a href="<?php echo BASE_URL; ?>views/auth/signup.php" class="nav-link hover-scale-md mx-6 py-2 text-sm font-medium rounded-lg cursor-pointer hover:text-secondary transition-colors duration-300">
           Sign Up
-        </button>
+        </a>
         <a href="<?php echo BASE_URL; ?>views/auth/login.php" class="hover-scale-md px-8 py-2.5 bg-secondary text-primary text-sm font-bold rounded-lg shadow-md cursor-pointer">
           Login
         </a>
