@@ -116,38 +116,17 @@
     filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 0.25));
   }
 
-  /* Floating label styles for login fields */
-  .floating-label-wrapper {
-    position: relative;
+  .icon-size-sm{
+    width: 24px;
+    height:24px;
   }
-
-  .floating-label-wrapper label {
-    position: absolute;
-    left: 4rem; /* matches pl-16 of input */
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.875rem;
-    color: #6B7280;
-    pointer-events: none;
-    transition: all 0.2s ease;
-    background: transparent;
-    padding: 0 0.25rem;
-    z-index: 5;
+  .icon-size-md{
+    width: 32px;
+    height:32px;
   }
-
-  .floating-label-wrapper input:focus + label,
-  .floating-label-wrapper input:not(:placeholder-shown) + label,
-  .floating-label-wrapper input.has-value + label {
-    top: -0.5rem;
-    left: 3rem;
-    font-size: 0.75rem;
-    color: #00ADB5;
-    background: white;
-    padding: 0 0.5rem;
+  .icon-size-lg{
+    width: 40px;
+    height:40px;
   }
-
-  .floating-label-wrapper input.invalid-input + label {
-    color: #EF4444;
-  }
-
+  
 }

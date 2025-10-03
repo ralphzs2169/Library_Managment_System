@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../Core/Database.php';
 
 class User {
     private $_userId, $_firstname, $_lastname, $_middle_initial, 
@@ -59,6 +60,28 @@ class User {
         return $this->db->lastInsertId();
     }
 
+    public function loadUserByID($user_id){
+        $this->db->query("SELECT * from user WHERE id  = :user_id");
+        $this->db->bind(':user_id', $user_id);
+        $row =  $this->db->single();
+
+        if($row){
+            $this->setUserId($row->id);
+            $this->setFirstName($row->firstname);
+            $this->setLastName($row->lastname);
+            $this->setMiddleInitial($row->middle_initial);
+            $this->setUsername($row->username);
+            $this->setEmail($row->email);
+            $this->setContact($row->contact_no);
+            $this->setPassword($row->password);
+            $this->setRole($row->role);
+            $this->setLibraryStatus($row->library_status);
+            $this->setCreatedAt($row->created_at);
+            $this->setUpdatedAt($row->updated_at);
+            return true;
+        }
+        return false;
+    }
 
     public static function findUserByEmailOrUsername($identifier) {
         $db = new Database();
@@ -67,16 +90,8 @@ class User {
         return $db->single();
     }
 
-    // Verify Login Credentials
-    public function login($username, $password) {   
-
-        $user = $this->findUserByEmailOrUsername($username);
-        
-        if ($user) {
-            return $user;
-        }
-
-        return false;
+    public function getFullname(){
+        return $this->getFirstName() . ' ' . ($this->getMiddleInitial() ? $this->getMiddleInitial() . '. ' : '') . $this->getLastName();
     }
 
     public function getLastInsertId() {

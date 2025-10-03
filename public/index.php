@@ -10,8 +10,12 @@
     <title>SMART -LMS</title>
 </head>
     <?php include '../views/layouts/header.php'; ?>
+    <?php include '../views/layouts/landingPage.php'; ?>
     <?php include '../views/layouts/footer.php'; ?>
 <body>
     
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="module" src="<?php echo BASE_URL; ?>public/js/header.js"></script>
 </body>
 </html>

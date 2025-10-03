@@ -1,4 +1,6 @@
-function displayError(errors) {
+// ============= FORM ERROR HANDLING ==============
+
+export function displayInputErrors(errors) {
     // Clear previous errors and reset all placeholders
     const errorPlaceholders = Array.from(document.querySelectorAll('.error-placeholder'));
 
@@ -51,7 +53,7 @@ function displayError(errors) {
 }
 
 // Clear errors; optional recompute to avoid repeated recompute per field
-function clearErrors(inputField, recompute = true) {
+export function clearInputError(inputField, recompute = true) {
     // Add null check to prevent the error
     if (!inputField) {
         console.warn('Input field is null');
@@ -72,8 +74,8 @@ function clearErrors(inputField, recompute = true) {
     }
 }
 
-// New helper: group placeholders by their top position and set equal height per group
-function normalizePlaceholdersByRow() {
+// group placeholders by their top position and set equal height per group
+export function normalizePlaceholdersByRow() {
     const placeholders = Array.from(document.querySelectorAll('#signup-form .error-placeholder'));
     if (!placeholders.length) return;
 
@@ -110,7 +112,7 @@ function normalizePlaceholdersByRow() {
 }
 
 // Smooth-scroll to first invalid input, focus and briefly highlight it
-function scrollToFirstError() {
+export function scrollToFirstError() {
 	const firstInvalid = document.querySelector('#signup-form .invalid-input');
 	if (!firstInvalid) return;
 
@@ -123,4 +125,27 @@ function scrollToFirstError() {
 
 	// Smooth scroll
 	window.scrollTo({ top: Math.max(0, scrollY), behavior: 'smooth' });
+}
+
+// ============= AUTO-CAPITALIZATION ==============
+export function autoCapitalizeWords(field) {
+  field.addEventListener('input', function () {
+    let words = this.value.split(' ');
+    this.value = words
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  });
+}
+
+export function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function autoCapitalizeOnBlur(fields) {
+  fields.forEach(field => {
+    field.addEventListener('blur', () => {
+      const value = field.value.trim();
+      if (value) field.value = capitalizeFirstLetter(value);
+    });
+  });
 }

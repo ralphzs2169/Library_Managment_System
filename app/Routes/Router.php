@@ -71,8 +71,7 @@ class Router
                 // Add more POST routes here
             ],
             'GET' => [
-                '/test' => 'UserController@test',
-                '/users' => 'RegisterController@getAllVerifiedUsers',
+               
                 // Add more GET routes here
             ],
             'PUT' => [

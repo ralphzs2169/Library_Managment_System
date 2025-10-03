@@ -17,7 +17,7 @@
                 <h2 class="text-5xl font-bold mb-6 text-center">Login</h2>
             </div>
 
-            <form action="process_login.php" method="POST" class="space-y-6" novalidate>
+            <form class="space-y-6" novalidate>
                 
                 <!-- Username Input -->
                 <div class="relative field-container mt-8">
@@ -66,68 +66,10 @@
 
     <?php include '../layouts/footer.php'; ?>
 
-    <script>
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const eyeIcon = document.getElementById('eyeIcon');
-
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            if (type === 'text') {
-                eyeIcon.src = '<?php echo BASE_URL; ?>public/assets/icons/eye-on.svg';
-            } else {
-                eyeIcon.src = '<?php echo BASE_URL; ?>public/assets/icons/eye-off.svg';
-            }
-        });
-
-        const usernameInput = document.getElementById('username');
-        const passwordInputField = document.getElementById('password');
-
-        usernameInput.addEventListener('focus', function() {
-            clearErrors(usernameInput);
-        });
-        passwordInputField.addEventListener('focus', function() {
-            clearErrors(passwordInputField);
-        });
-
-        const loginForm = document.querySelector('form');
-        loginForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            const formData = {
-                username: document.getElementById('username').value,
-                password: document.getElementById('password').value
-            };
-
-            const response = await fetch('/LibraryManagementSystem/app/routes/api.php/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-
-            if (result.status === 'success') {
-                // Redirect or show success message
-                window.location.href = '<?php echo BASE_URL; ?>public/index.php';
-            } else {
-                console.log(result);
-                if (result.errors){
-                    displayError(result.errors);
-                    return;
-                }
-                // Show error message
-                
-            }
-        });
-
-    </script>
+   
     <script src="<?php echo URLROOT; ?>/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/helpers.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/login.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/helpers.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/utils.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/pages/login.js"></script>
 </body>
 </html>

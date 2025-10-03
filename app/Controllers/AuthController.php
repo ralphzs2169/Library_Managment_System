@@ -133,21 +133,23 @@ class AuthController extends Controller{
             }
 
             // Find username
-            $user = $this->userModel->findUserByEmailOrUsername($data['username']);
+            $foundUser = $this->userModel->findUserByEmailOrUsername($data['username']);
 
-            if (!$user) {
+            if (!$foundUser) {
                 echo json_encode(['status' => 'failed', 'errors' => ['username' => 'Username not found']]);
                 http_response_code(422);
                 exit;
             }
-           
-            if ($user && password_verify($data['password'], $user->password)) {
+
+            if ($foundUser && password_verify($data['password'], $foundUser->password)) {
                 // Login successful
                 // Set session variables
-                $_SESSION['user_id'] = $user->id;
-                $_SESSION['username'] = $user->username;
-                $_SESSION['email'] = $user->email;
-                $_SESSION['role'] = $user->role;
+                $_SESSION['user_id'] = $foundUser->id;
+                $_SESSION['username'] = $foundUser->username;
+                $_SESSION['email'] = $foundUser->email;
+                $_SESSION['role'] = $foundUser->role;
+
+                $this->userModel->loadUserByID($foundUser->id);
                 
                 echo json_encode(['status' => 'success', 'message' => 'Login successful']);
                 http_response_code(200);
@@ -166,7 +168,7 @@ class AuthController extends Controller{
     public function logout()
     {
         session_destroy();
-        header('Location: ' . URLROOT . '/auth/login');
+        header('Location: ' . BASE_URL . 'public/index.php');
         exit;
     }
 }

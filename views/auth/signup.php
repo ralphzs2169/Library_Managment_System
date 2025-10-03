@@ -19,7 +19,7 @@
                 <h2 class="text-4xl font-bold mb-5 text-center">Sign Up</h2>
             </div>
 
-            <form id="signup-form" action="process_login.php" method="POST" class="space-y-4" novalidate>
+            <form id="signup-form" class="space-y-4" novalidate>
                 
                 <!-- Personal Information Section -->
                 <div class="form-section">
@@ -161,7 +161,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="hover-scale-sm cursor-pointer mt-4 w-full py-2.5 bg-secondary text-2xl text-white rounded-lg hover:bg-secondary-dark transition-colors duration-300">Sign Up</button>
+                    <button class="hover-scale-sm cursor-pointer mt-4 w-full py-2.5 bg-secondary text-2xl text-white rounded-lg hover:bg-secondary-dark transition-colors duration-300">Sign Up</button>
                 </div>
             </form>
                                   
@@ -182,11 +182,12 @@
 
     <?php include '../layouts/footer.php'; ?>
 
-    <!-- SweetAlert2 local copy -->
     <script src="<?php echo URLROOT; ?>/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-    <!-- application script (must load after SweetAlert) -->
-    <script src="<?php echo URLROOT; ?>/public/js/helpers.js"></script>
-    <script src="<?php echo URLROOT; ?>/public/js/signup.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/config.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/utils.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/helpers.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/api/auth.js"></script>
+    <script type="module" src="<?php echo URLROOT; ?>/public/js/pages/signup.js"></script>
 </body>
 </html>

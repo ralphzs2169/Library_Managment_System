@@ -1,39 +1,21 @@
-const roleSelect = document.getElementById('role');
-const idNumberField = document.getElementById('id_number');
-const yearLevelField = document.getElementById('year_level');
-const departmentField = document.getElementById('department_id');
-const schoolInfoGrid = document.getElementById('school-info-grid');
+import { displayInputErrors, clearInputError, autoCapitalizeOnBlur, autoCapitalizeWords } from '../helpers.js';
+import { API_ROUTES, BASE_URL } from '../config.js';
+import { showError, showSuccessWithRedirect } from '../utils.js';
 
 const firstnameField = document.getElementById('firstname');
 const lastnameField = document.getElementById('lastname');
 const middleInitialField = document.getElementById('middle_initial');
 
-function autoCapitalizeWords(field) {
-  field.addEventListener('input', function () {
-    let words = this.value.split(' ');
-    this.value = words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  });
-}
 
 // Apply auto-capitalization to name fields
 [firstnameField, lastnameField, middleInitialField].forEach(autoCapitalizeWords);
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function autoCapitalizeOnBlur(fields) {
-  fields.forEach(field => {
-    field.addEventListener('blur', () => {
-      const value = field.value.trim();
-      if (value) field.value = capitalizeFirstLetter(value);
-    });
-  });
-}
-
 autoCapitalizeOnBlur([firstnameField, lastnameField, middleInitialField]);
+
+//============= FORM FIELD DYNAMICS ==============
+const roleSelect = document.getElementById('role');
+const idNumberField = document.getElementById('id_number');
+const yearLevelField = document.getElementById('year_level');
+const departmentField = document.getElementById('department_id');
 
 // Initialize disabled state on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -49,9 +31,9 @@ roleSelect.addEventListener('change', function() {
     const schoolDetailsContainer = document.getElementById('school-details');
     
     if (selectedRole === 'Student') {
-        clearErrors(idNumberField);
-        clearErrors(departmentField);
-        clearErrors(yearLevelField);
+        clearInputError(idNumberField);
+        clearInputError(departmentField);
+        clearInputError(yearLevelField);
     
         idNumberField.disabled = false;
         idNumberField.placeholder = 'Student ID';
@@ -71,9 +53,9 @@ roleSelect.addEventListener('change', function() {
         schoolDetailsContainer.classList.remove('grid-cols-1');
         schoolDetailsContainer.classList.add('grid-cols-2');
     } else if (selectedRole === 'Teacher') {
-        clearErrors(yearLevelField);
-        clearErrors(departmentField);
-        clearErrors(idNumberField);
+        clearInputError(yearLevelField);
+        clearInputError(departmentField);
+        clearInputError(idNumberField);
         
         idNumberField.disabled = false;
         idNumberField.placeholder = 'Employee ID';
@@ -117,23 +99,23 @@ roleSelect.addEventListener('change', function() {
     }
 });
 
+
 const inputs = document.querySelectorAll('#signup-form input, #signup-form select');
 
 // Clear errors on focus
 inputs.forEach(input => {
     input.addEventListener('focus', function() {
-        clearErrors(input);
+        clearInputError(input);
     });
 });
-
-
 inputs.forEach(input => {
-    clearErrors(input, /*recompute=*/false);
+    clearInputError(input, /*recompute=*/false);
 });
 
+// Handle form submission
+const signupForm = document.getElementById('signup-form');
 
-
-document.getElementById('signup-form').addEventListener('submit', async function(e) {
+signupForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     // Blur currently focused form control so it loses focus on submit
@@ -162,9 +144,8 @@ document.getElementById('signup-form').addEventListener('submit', async function
                         formData.get('role') === 'Teacher' ? formData.get('department_id') : null
     };
 
-
     try {
-        const response = await fetch('/LibraryManagementSystem/app/routes/api.php/signup', {
+        const response = await fetch(API_ROUTES.SIGNUP, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -175,28 +156,19 @@ document.getElementById('signup-form').addEventListener('submit', async function
         const result = await response.json();
 
         if (result.errors){
-            displayError(result.errors);
+            displayInputErrors(result.errors);
             return;
         }
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Account Successfully Created',
-            text: 'You have successfully registered!',
-            confirmButtonColor: '#00ADB5'
-        }).then(() => {
-                window.location.href = '/LibraryManagementSystem/views/auth/login.php';
-        });
-       
+        showSuccessWithRedirect(
+            'Account Successfully Created', 
+            'You have successfully registered!',
+             BASE_URL + 'views/auth/login.php'  
+        );
 
     } catch (error) {
-         console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Something went wrong',
-            text: 'Please try again later.',
-            confirmButtonColor: '#00ADB5'
-        });
+        console.error('Error:', error);
+        showError('Something went wrong', 'Please try again later.');
     }
 });
 
